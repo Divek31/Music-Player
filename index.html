@@ -64,23 +64,123 @@
       </div>
 
       <!-- Content -->
-      <div class="content">
+    <div class="content">
 
-        <div class="hero">
-          <div class="hero-card">
-            <div class="inner">
-              <h1>Premium Fusion Player 🎧</h1>
-              <p>
-                Upload your MP3 files and enjoy a full-featured music player.
-                Shuffle / Repeat / Queue are all working.
-              </p>
+  <!-- PAGES (SPA Sections) -->
+  <section class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-card">
+        <div class="inner">
+          <h1>Premium Fusion Player 🎧</h1>
+          <p>
+            Upload your MP3 files and enjoy a full-featured music player.
+            Shuffle / Repeat / Queue are all working.
+          </p>
 
-              <div class="hero-cta">
-                <button class="btn primary" id="playAllBtn">▶ Play</button>
-                <button class="btn secondary" id="clearBtn">🗑 Clear</button>
-              </div>
-            </div>
+          <div class="hero-cta">
+            <button class="btn primary" id="playAllBtn">▶ Play</button>
+            <button class="btn secondary" id="clearBtn">🗑 Clear</button>
           </div>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <h3>What's your mood?</h3>
+        <p class="queueHint">Pick a mood and get instant recommendations.</p>
+
+        <div class="moodGrid" id="moodGrid">
+          <button class="moodBtn" data-mood="chill">😌 Chill</button>
+          <button class="moodBtn" data-mood="happy">😄 Happy</button>
+          <button class="moodBtn" data-mood="sad">😔 Sad</button>
+          <button class="moodBtn" data-mood="focus">🧠 Focus</button>
+          <button class="moodBtn" data-mood="workout">🏋️ Workout</button>
+          <button class="moodBtn" data-mood="party">🥳 Party</button>
+        </div>
+
+        <div class="moodResult" id="moodResult">Mood: <b>None</b></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Your Songs</h2>
+        <span id="countText">0 tracks</span>
+      </div>
+
+      <div class="songs" id="songList"></div>
+    </div>
+  </section>
+
+  <!-- SEARCH PAGE -->
+  <section class="page" id="page-search">
+    <div class="pageHeader">
+      <h2>Search</h2>
+      <p>Search songs by title / artist.</p>
+    </div>
+
+    <div class="bigSearch">
+      <input id="pageSearchInput" placeholder="Type to search..." />
+    </div>
+
+    <div class="songs" id="searchResults"></div>
+  </section>
+
+  <!-- LIBRARY PAGE -->
+  <section class="page" id="page-library">
+    <div class="pageHeader">
+      <h2>Library</h2>
+      <p>Your uploads, liked songs & recent listens.</p>
+    </div>
+
+    <div class="libraryGrid">
+      <div class="libCard">
+        <h3>Uploads</h3>
+        <p id="uploadsCount">0 songs</p>
+      </div>
+
+      <div class="libCard">
+        <h3>Favorites</h3>
+        <p id="favCount">0 liked</p>
+      </div>
+
+      <div class="libCard">
+        <h3>Recently Played</h3>
+        <p id="recentCount">0 recent</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVER PAGE -->
+  <section class="page" id="page-discover">
+    <div class="pageHeader">
+      <h2>Discover</h2>
+      <p>Suggestions based on your mood & recent listening.</p>
+    </div>
+
+    <div class="discoverBox">
+      <h3>🔥 Daily Mix</h3>
+      <p>Auto curated mix from your uploaded songs.</p>
+      <button class="btn primary" id="discoverMixBtn">▶ Play Daily Mix</button>
+    </div>
+  </section>
+
+  <!-- RADIO PAGE -->
+  <section class="page" id="page-radio">
+    <div class="pageHeader">
+      <h2>Radio</h2>
+      <p>Start instant stations from your songs.</p>
+    </div>
+
+    <div class="radioGrid">
+      <button class="radioBtn" data-station="lofi">📻 Lo-fi Station</button>
+      <button class="radioBtn" data-station="bass">🔊 Bass Station</button>
+      <button class="radioBtn" data-station="romantic">💗 Romantic Station</button>
+      <button class="radioBtn" data-station="random">🎲 Random Station</button>
+    </div>
+  </section>
+
+</div>
+
 
           <div class="mini-card">
             <h3>Queue</h3>

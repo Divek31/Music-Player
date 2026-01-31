@@ -411,3 +411,188 @@ searchInput.addEventListener("input", () => {
 
 // Default art
 nowArt.style.background = randomGradient();
+
+// ----------------------
+// SPA NAVIGATION
+// ----------------------
+const navBtns = document.querySelectorAll(".nav button[data-nav]");
+const pages = {
+  home: document.getElementById("page-home"),
+  search: document.getElementById("page-search"),
+  library: document.getElementById("page-library"),
+  discover: document.getElementById("page-discover"),
+  radio: document.getElementById("page-radio"),
+};
+
+function openPage(pageName) {
+  // remove active from all pages
+  Object.values(pages).forEach(p => p.classList.remove("active"));
+  // add active to selected
+  pages[pageName]?.classList.add("active");
+
+  // active nav button UI
+  navBtns.forEach(btn => btn.classList.remove("active"));
+  navBtns.forEach(btn => {
+    if (btn.dataset.nav === pageName) btn.classList.add("active");
+  });
+
+  // Special actions for pages
+  if (pageName === "search") syncSearchPage();
+  if (pageName === "library") syncLibraryPage();
+}
+
+navBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    openPage(btn.dataset.nav);
+  });
+});
+
+// default page
+openPage("home");
+
+// ----------------------
+// SEARCH PAGE FEATURE
+// ----------------------
+const pageSearchInput = document.getElementById("pageSearchInput");
+const searchResults = document.getElementById("searchResults");
+
+function renderSearchResults(list) {
+  searchResults.innerHTML = "";
+
+  if (!list.length) {
+    searchResults.innerHTML = `<div style="padding:14px;color:rgba(234,240,255,0.55)">No results found</div>`;
+    return;
+  }
+
+  list.forEach((s) => {
+    const row = document.createElement("div");
+    row.className = "song-row";
+    row.dataset.id = s.id;
+
+    row.innerHTML = `
+      <div class="song-thumb" style="background:${s.coverGradient}"></div>
+      <div class="song-meta">
+        <h5>${s.title}</h5>
+        <p>${s.artist}</p>
+      </div>
+      <div class="song-time">${s.durationText || "--:--"}</div>
+      <button class="kebab">⋯</button>
+    `;
+    row.addEventListener("click", () => playById(s.id));
+    searchResults.appendChild(row);
+  });
+}
+
+function syncSearchPage() {
+  pageSearchInput.value = "";
+  renderSearchResults(songs);
+}
+
+pageSearchInput.addEventListener("input", () => {
+  const q = pageSearchInput.value.trim().toLowerCase();
+  const filtered = songs.filter(s =>
+    s.title.toLowerCase().includes(q) ||
+    s.artist.toLowerCase().includes(q)
+  );
+  renderSearchResults(filtered);
+});
+
+// ----------------------
+// LIBRARY PAGE (Counters)
+// ----------------------
+const uploadsCount = document.getElementById("uploadsCount");
+const favCount = document.getElementById("favCount");
+const recentCount = document.getElementById("recentCount");
+
+// (for now dummy) later we will connect favorites + recent lists
+function syncLibraryPage() {
+  uploadsCount.textContent = `${songs.length} songs`;
+  favCount.textContent = `0 liked`;
+  recentCount.textContent = `0 recent`;
+}
+
+// ----------------------
+// MOOD FEATURE
+// ----------------------
+const moodGrid = document.getElementById("moodGrid");
+const moodResult = document.getElementById("moodResult");
+
+const moodKeywords = {
+  chill: ["lofi", "chill", "relax", "calm", "rain"],
+  happy: ["happy", "fun", "dance", "party", "smile"],
+  sad: ["sad", "alone", "broken", "cry", "pain"],
+  focus: ["focus", "study", "coding", "work"],
+  workout: ["workout", "gym", "pump", "energy", "run"],
+  party: ["party", "dj", "bass", "edm"]
+};
+
+function moodFilter(mood) {
+  const keys = moodKeywords[mood] || [];
+  // filter by title/artist match
+  const filtered = songs.filter(s => {
+    const text = (s.title + " " + s.artist).toLowerCase();
+    return keys.some(k => text.includes(k));
+  });
+
+  // If no match, fallback random
+  if (!filtered.length) return songs.slice(0, 10);
+
+  return filtered;
+}
+
+moodGrid?.addEventListener("click", (e) => {
+  const btn = e.target.closest(".moodBtn");
+  if (!btn) return;
+
+  // active UI
+  document.querySelectorAll(".moodBtn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  const mood = btn.dataset.mood;
+  moodResult.innerHTML = `Mood: <b>${mood.toUpperCase()}</b>`;
+
+  const filtered = moodFilter(mood);
+
+  // show mood results on HOME list
+  renderSongs(filtered);
+});
+
+// ----------------------
+// RADIO PAGE
+// ----------------------
+document.querySelectorAll(".radioBtn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const station = btn.dataset.station;
+
+    if (!songs.length) {
+      alert("Upload some songs first!");
+      return;
+    }
+
+    let filtered = songs;
+
+    if (station === "lofi") filtered = moodFilter("chill");
+    if (station === "bass") filtered = moodFilter("party");
+    if (station === "romantic") filtered = songs.filter(s => (s.title + s.artist).toLowerCase().includes("love"));
+    if (station === "random") filtered = [...songs].sort(() => Math.random() - 0.5);
+
+    // play first from station
+    renderSongs(filtered);
+    playById(filtered[0].id);
+
+    // go to home to see list
+    openPage("home");
+  });
+});
+
+// Discover mix
+document.getElementById("discoverMixBtn")?.addEventListener("click", () => {
+  if (!songs.length) {
+    alert("Upload songs first!");
+    return;
+  }
+  const mix = [...songs].sort(() => Math.random() - 0.5);
+  renderSongs(mix);
+  playById(mix[0].id);
+  openPage("home");
+});

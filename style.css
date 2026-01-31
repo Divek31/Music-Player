@@ -556,3 +556,127 @@ input[type="range"]::-webkit-slider-thumb{
 .song-row.playing h5{
   color: rgba(30,215,96,0.95);
 }
+
+/* -------- PAGES SYSTEM -------- */
+.page{
+  display:none;
+  animation: fadeUp .25s ease;
+}
+.page.active{display:block;}
+
+@keyframes fadeUp{
+  from{opacity:0; transform: translateY(8px);}
+  to{opacity:1; transform: translateY(0);}
+}
+
+.pageHeader{
+  padding: 10px 0 16px;
+}
+.pageHeader h2{
+  font-size: 22px;
+}
+.pageHeader p{
+  margin-top: 6px;
+  color: rgba(234,240,255,0.60);
+  font-size: 13px;
+}
+
+/* Mood */
+.moodGrid{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:10px;
+}
+.moodBtn{
+  cursor:pointer;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: rgba(234,240,255,0.92);
+  font-weight: 700;
+  transition: .2s ease;
+}
+.moodBtn:hover{transform: translateY(-2px);}
+.moodBtn.active{
+  border:1px solid rgba(30,215,96,0.30);
+  background: rgba(30,215,96,0.14);
+}
+
+.moodResult{
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgba(234,240,255,0.72);
+}
+
+/* Search page */
+.bigSearch{
+  margin: 10px 0 18px;
+}
+.bigSearch input{
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  outline:none;
+  color: rgba(234,240,255,0.92);
+  font-size: 14px;
+}
+
+/* Library page cards */
+.libraryGrid{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:12px;
+}
+.libCard{
+  border-radius: 22px;
+  padding: 16px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px);
+}
+.libCard h3{font-size: 14px;}
+.libCard p{
+  margin-top: 6px;
+  color: rgba(234,240,255,0.55);
+  font-size: 13px;
+}
+
+/* Discover */
+.discoverBox{
+  margin-top: 14px;
+  border-radius: 22px;
+  padding: 18px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(135deg, rgba(168,85,247,0.14), rgba(74,163,255,0.10));
+  box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+}
+.discoverBox h3{font-size: 18px;}
+.discoverBox p{
+  margin-top: 6px;
+  color: rgba(234,240,255,0.70);
+  font-size: 13px;
+}
+
+/* Radio */
+.radioGrid{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:12px;
+}
+.radioBtn{
+  cursor:pointer;
+  padding: 16px 14px;
+  border-radius: 20px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: rgba(234,240,255,0.92);
+  font-weight: 800;
+  transition: .2s ease;
+}
+.radioBtn:hover{transform: translateY(-2px);}

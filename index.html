@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fusion Music Player</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo"></div>
+        <div class="brand-text">
+          <h2>Fusion Player</h2>
+          <p>Spotify × Amazon × Saavn</p>
+        </div>
+      </div>
+
+      <div class="nav">
+        <button class="active"><div class="ic">🏠</div> <span>Home</span></button>
+        <button><div class="ic">🔎</div> <span>Search</span></button>
+        <button><div class="ic">🎵</div> <span>Library</span></button>
+        <button><div class="ic">✨</div> <span>Discover</span></button>
+        <button><div class="ic">📻</div> <span>Radio</span></button>
+      </div>
+
+      <div class="side-card">
+        <h3>Upload Songs</h3>
+        <p>Select multiple MP3 files, it will build playlist automatically.</p>
+
+        <label class="pill" for="fileInput">⬆ Upload MP3</label>
+        <input id="fileInput" type="file" accept="audio/*" multiple hidden>
+      </div>
+
+      <div class="side-card">
+        <h3>Playback Mode</h3>
+        <p>Shuffle + Repeat controls are fully working now.</p>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="search">
+          <span>🔍</span>
+          <input id="searchInput" placeholder="Search uploaded songs..." />
+        </div>
+
+        <div class="top-actions">
+          <div class="circle-btn" id="shuffleBtn" title="Shuffle">🔀</div>
+          <div class="circle-btn" id="repeatBtn" title="Repeat">🔁</div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+
+        <div class="hero">
+          <div class="hero-card">
+            <div class="inner">
+              <h1>Premium Fusion Player 🎧</h1>
+              <p>
+                Upload your MP3 files and enjoy a full-featured music player.
+                Shuffle / Repeat / Queue are all working.
+              </p>
+
+              <div class="hero-cta">
+                <button class="btn primary" id="playAllBtn">▶ Play</button>
+                <button class="btn secondary" id="clearBtn">🗑 Clear</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini-card">
+            <h3>Queue</h3>
+            <p class="queueHint">Uploaded songs will appear here.</p>
+            <div class="tags" id="queueTags"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">
+            <h2>Your Songs</h2>
+            <span id="countText">0 tracks</span>
+          </div>
+
+          <div class="songs" id="songList">
+            <!-- songs -->
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Now Playing -->
+    <footer class="now">
+      <div class="now-left">
+        <div class="now-art" id="nowArt"></div>
+        <div class="now-title">
+          <b id="nowTitle">No song selected</b>
+          <small id="nowArtist">Upload and play</small>
+        </div>
+        <div class="like" id="likeBtn" title="Like">💚</div>
+      </div>
+
+      <div class="now-mid">
+        <div class="controls">
+          <button class="ctrl" id="prevBtn" title="Previous">⏮</button>
+          <button class="ctrl play" id="playBtn" title="Play/Pause">▶</button>
+          <button class="ctrl" id="nextBtn" title="Next">⏭</button>
+        </div>
+
+        <div class="timeline">
+          <span id="curTime">0:00</span>
+          <input type="range" id="progress" value="0" min="0" max="100">
+          <span id="durTime">0:00</span>
+        </div>
+      </div>
+
+      <div class="now-right">
+        <span>🔊</span>
+        <input class="vol" type="range" id="volume" value="80" min="0" max="100">
+        <div class="circle-btn" id="queueBtn" title="Queue">📃</div>
+      </div>
+
+      <audio id="audio"></audio>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
